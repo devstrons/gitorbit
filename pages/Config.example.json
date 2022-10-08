@@ -1,1 +1,3 @@
-{"TOKEN" : "<your-github-token>"}
+{
+    "TOKEN": "<your-github-token>"
+}

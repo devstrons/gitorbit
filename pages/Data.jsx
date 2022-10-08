@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { removeDuplicates } from "./Util.js";
-import render from './Image';
+import render from "./Image";
 import config from "./Config.json";
 // import "../styles/Data.scss";
 
 export default function Data() {
   const APIURL = "https://api.github.com/users/";
-  const [username, setUsername] = useState("imabp");
+  const [username, setUsername] = useState("aminoxix");
   const [followerdata, setFollowerData] = useState([]);
   const [followingdata, setFollowingData] = useState([]);
   const [data, setData] = useState([]);
@@ -46,6 +46,7 @@ export default function Data() {
     });
 
     const json = await response.json();
+    console.log(json);
     setFollowerData(json);
   }
 
@@ -74,43 +75,81 @@ export default function Data() {
     // console.log(layers, username.toLowerCase(), data);
 
     // render the image
-    setImg(await render([
-      { distance: 0, count: 1, radius: 110, users: [username] },
-      // { distance: 200, count: layers[0], radius: 64, users: data[0] },
-      // { distance: 330, count: layers[1], radius: 58, users: data[1] },
-      // { distance: 450, count: layers[2], radius: 50, users: data[2] },
-      { distance: 200, count: layers[0], radius: 64, users: [
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', /* 'amino19', 'imabp', */
-        // 'paramsiddharth', 'amino19', 'imabp',
-      ] },
-      { distance: 330, count: layers[1], radius: 58, users: [
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', /* 'imabp', */
-        // 'paramsiddharth', 'amino19', 'imabp',
-        // 'paramsiddharth', 'amino19', 'imabp',
-      ] },
-      { distance: 450, count: layers[2], radius: 50, users: [
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-        'paramsiddharth', 'amino19', 'imabp',
-      ] },
-    ]),
-    cnvs.current
+    setImg(
+      await render([
+        { distance: 0, count: 1, radius: 110, users: [username] },
+        {
+          distance: 200,
+          count: layers[0],
+          radius: 64,
+          users: [
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+          ],
+        },
+        {
+          distance: 330,
+          count: layers[1],
+          radius: 58,
+          users: [
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+          ],
+        },
+        {
+          distance: 450,
+          count: layers[2],
+          radius: 50,
+          users: [
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+            "imabp",
+            "paramsiddharth",
+            "aminoxix",
+          ],
+        },
+      ]),
+      cnvs.current
     );
   }
 
@@ -131,12 +170,12 @@ export default function Data() {
             ></img>
           ))}
         </ul>
-        {
-          IMG ? 
-            <img src={IMG} />
-          : ''
-        }
-        <canvas crossOrigin='anonymous' id='maincanvas' ref={cnvs} /* style={{ display: 'none' }} */></canvas>
+        {IMG ? <img src={IMG} /> : ""}
+        <canvas
+          // crossOrigin="anonymous"
+          id="maincanvas"
+          ref={cnvs} /* style={{ display: 'none' }} */
+        ></canvas>
       </div>
     </>
   );

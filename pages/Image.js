@@ -1,5 +1,16 @@
-const {createCanvas, loadImage} = require("canvas");
-const fs = require("fs");
+import { createCanvas, loadImage } from "canvas";
+import { createWriteStream } from "fs";
+
+const cacheImages = {};
+// if we already have the image in cache, just use it
+async function getImage(url)
+{
+	if (cacheImages[ url ]) return cacheImages[ url ];
+
+	const image = await loadImage(url).catch(() => getImage(defaultAvatarUrl));
+	cacheImages[ url ] = image;
+	return image;
+}
 
 const toRad = (x) => x * (Math.PI / 180);
 
@@ -13,7 +24,8 @@ const toRad = (x) => x * (Math.PI / 180);
  * users: list of users to render in the format {avatar:string}
  * @returns {Promise<void>}
  */
-module.exports = async function render(config) {
+export default async function render(config)
+{
 	const width = 1000;
 	const height = 1000;
 
@@ -25,13 +37,15 @@ module.exports = async function render(config) {
 	ctx.fillRect(0, 0, width, height);
 
 	// loop over the layers
-	for (const [layerIndex, layer] of config.entries()) {
-		const {count, radius, distance, users} = layer;
-
+	for (const [ layerIndex, layer ] of config.entries())
+	{
+		const { count, radius, distance, users } = layer;
+		const userUrls = users.map((user) => `https://www.github.com/${ user }.png`);
 		const angleSize = 360 / count;
 
 		// loop over each circle of the layer
-		for (let i = 0; i < count; i++) {
+		for (let i = 0; i < count; i++)
+		{
 			// We need an offset or the first circle will always on the same line and it looks weird
 			// Try removing this to see what happens
 			const offset = layerIndex * 30;
@@ -44,7 +58,7 @@ module.exports = async function render(config) {
 			const centerY = Math.sin(r) * distance + height / 2;
 
 			// if we are trying to render a circle but we ran out of users, just exit the loop. We are done.
-			if (!users[i]) break;
+			if (!users[ i ]) break;
 
 			ctx.save();
 			ctx.beginPath();
@@ -53,9 +67,9 @@ module.exports = async function render(config) {
 
 			const defaultAvatarUrl =
 				"https://abs.twimg.com/sticky/default_profile_images/default_profile_200x200.png";
-			const avatarUrl = users[i].avatar || defaultAvatarUrl;
+			const avatarUrl = userUrls[ i ] || defaultAvatarUrl;
 
-			const img = await loadImage(avatarUrl);
+			const img = await getImage(avatarUrl);
 			ctx.drawImage(
 				img,
 				centerX - radius,
@@ -69,7 +83,7 @@ module.exports = async function render(config) {
 	}
 
 	// write the resulting canvas to file
-	const out = fs.createWriteStream("./circle.png");
+	const out = createWriteStream("./circle.png");
 	const stream = canvas.createPNGStream();
 	stream.pipe(out);
 	out.on("finish", () => console.log("Done!"));
