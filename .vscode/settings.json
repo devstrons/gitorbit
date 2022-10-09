@@ -1,0 +1,7 @@
+{
+  "conventionalCommits.promptFooter": false,
+  "conventionalCommits.promptScopes": false,
+  "cSpell.words": ["devstrons"],
+  "javascript.format.semicolons": "remove",
+  "typescript.format.semicolons": "remove"
+}
