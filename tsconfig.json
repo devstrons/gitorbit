@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,8 +18,9 @@
     "baseUrl": "src",
     "paths": {
       "~/*": ["*"]
-    }
+    },
+    "plugins": [{ "name": "next" }]
   },
-  "include": ["next-env.d.ts", "src/**/*.{ts,tsx}", "*.config.js"],
+  "include": ["next-env.d.ts", "src/**/*.{ts,tsx}", "*.config.js", ".next/types/**/*.ts"],
   "exclude": ["node_modules", "delete_me", "archive", "*.archive", "*.archive.*"]
 }

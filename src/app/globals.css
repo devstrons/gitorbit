@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-slate-300 dark:border-slate-500;
+  }
+
+  input,
+  textarea {
+    @apply w-full border-inherit placeholder:text-sm placeholder:leading-6 placeholder:text-slate-500 focus:outline-none focus:ring-transparent;
+  }
+
+  [data-nextjs-scroll-focus-boundary] {
+    @apply contents;
+  }
+}
+
+@layer components {
+  /* Icon */
+  .icon,
+  .icon-outline {
+    @apply inline-block whitespace-nowrap align-middle text-2xl font-normal normal-case not-italic !leading-none tracking-normal;
+    word-wrap: normal;
+    direction: ltr;
+  }
+  .icon {
+    font-family: 'Material Icons Round';
+  }
+  .icon-outline {
+    font-family: 'Material Icons Outlined';
+  }
+}
