@@ -17,6 +17,7 @@ export default function RootLayout(props: PropsWithChildren) {
           href='https://fonts.googleapis.com/icon?family=Material+Icons+Outlined'
           rel='stylesheet'
         />
+        <title>GitOrbit</title>
       </head>
       <body className='bg-slate-700'>
         <div className='grid h-screen grid-rows-[auto,1fr] overflow-y-auto text-slate-300'>
@@ -25,7 +26,7 @@ export default function RootLayout(props: PropsWithChildren) {
               <Link
                 href='/'
                 className='relative block aspect-[6/1] h-8 mix-blend-lighten brightness-150 contrast-125'>
-                <Image src='/gitorbit_logo.png' alt='gitorbit logo' fill />
+                <Image src='/gitorbit-logo.png' alt='gitorbit logo' fill />
               </Link>
               <button className='icon' type='button'>
                 dark_mode

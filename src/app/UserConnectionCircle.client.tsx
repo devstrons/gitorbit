@@ -1,7 +1,7 @@
 'use client'
 
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
-import { angleToRadian } from '../utils/general.util'
+import { angleToRadian } from './utils/general.util'
 
 type Props = {
   size: number
@@ -38,8 +38,31 @@ const UserConnectionCircle = forwardRef<HTMLCanvasElement, Props>((props, ref) =
     const height = props.size
     // fill the background
     ctx.fillStyle = props.bgColor
+    // ctx.fillStyle = 'rgba(0,0,0,0.05)'
+    // ctx.globalAlpha = 0.2
+    // ctx.fillStyle = 'black'
+
     ctx.fillRect(0, 0, width, height)
 
+    // render logo
+    getImage('/gitorbit-logo.png').then((logo) => {
+      const logoHeight = props.size * 0.033,
+        logoWidth = logoHeight * 6,
+        padding = props.size * 0.01
+
+      ctx.save()
+      ctx.beginPath()
+      ctx.drawImage(
+        logo,
+        props.size - padding - logoWidth,
+        props.size - padding - logoHeight,
+        logoWidth,
+        logoHeight
+      )
+      ctx.restore()
+    })
+
+    // render user's connection circles
     Promise.all(props.avatarUrls.map(getImage)).then((avatarImages) => {
       for (let i = 0; i < configurations.length; i++) {
         const config = configurations[i]
