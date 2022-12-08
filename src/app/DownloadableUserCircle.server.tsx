@@ -30,7 +30,7 @@ const getUserGithubData = async (username: string) => {
     }
   }
 
-  const followingsIdSet = new Set(userFollowingsData.map((user) => user.id))
+  const followingsIdSet = new Set(userFollowingsData.map((user: any) => user.id))
 
   const userFollowersData = await getUserData(
     // Requesting extra 20 users
@@ -41,7 +41,7 @@ const getUserGithubData = async (username: string) => {
     userData,
     userConnections: [
       ...userFollowingsData,
-      ...userFollowersData.filter((user) => !followingsIdSet.has(user.id)),
+      ...userFollowersData.filter((user: any) => !followingsIdSet.has(user.id)),
     ],
   }
 }
@@ -60,7 +60,7 @@ export default async function DownloadableUserCircle(props: Props) {
       <UserConnectionCircle
         avatarUrls={[
           userResult.userData.avatar_url,
-          ...(userResult.userConnections?.map((user) => user.avatar_url) ?? []),
+          ...(userResult.userConnections?.map((user: any) => user.avatar_url) ?? []),
         ]}
         bgColor='rgb(14,165,233)'
         size={720}

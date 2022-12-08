@@ -12,6 +12,10 @@ const config = {
   experimental: {
     appDir: true,
   },
+  typescript: {
+    // Dangerously allow production builds to successfully complete even if the project has type errors.
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: ['avatars.githubusercontent.com'],
   },
