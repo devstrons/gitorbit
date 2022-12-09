@@ -3,11 +3,12 @@ import './globals.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { PropsWithChildren } from 'react'
-import AppProviders from './App.provider'
+
+import ToggleThemeButton from './ToggleThemeButton.client'
 
 export default function RootLayout(props: PropsWithChildren) {
   return (
-    <html lang='en'>
+    <html lang='en' className='dark'>
       <head>
         <link
           href='https://fonts.googleapis.com/icon?family=Material+Icons+Round'
@@ -19,24 +20,18 @@ export default function RootLayout(props: PropsWithChildren) {
         />
         <title>GitOrbit</title>
       </head>
-      <body className='bg-slate-700'>
-        <div className='grid h-screen grid-rows-[auto,1fr] overflow-y-auto text-slate-300'>
-          <header className='bg-slate-800 px-2 py-4 shadow-md md:px-4'>
+      <body className='bg-slate-100 transition dark:bg-slate-700'>
+        <div className='grid h-screen grid-rows-[auto,1fr] overflow-y-auto text-slate-500 dark:text-slate-300'>
+          <header className='sticky top-0 bg-white px-2 py-4 shadow-md dark:bg-slate-800 md:px-4'>
             <div className='mx-auto flex max-w-7xl items-center justify-between'>
-              <Link
-                href='/'
-                className='relative block aspect-[6/1] h-8 mix-blend-lighten brightness-150 contrast-125'>
+              <Link href='/' className='relative aspect-[6/1] h-8 invert-[0.75] dark:invert-0'>
                 <Image src='/gitorbit-logo.png' alt='gitorbit logo' fill />
               </Link>
-              <button className='icon' type='button'>
-                dark_mode
-              </button>
+              <ToggleThemeButton />
             </div>
           </header>
           <main className='px-2 md:px-4'>
-            <div className='mx-auto max-w-7xl py-4 md:py-8'>
-              <AppProviders>{props.children}</AppProviders>
-            </div>
+            <div className='mx-auto max-w-7xl py-4 md:py-8'>{props.children}</div>
           </main>
         </div>
       </body>

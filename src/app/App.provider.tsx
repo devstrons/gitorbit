@@ -15,7 +15,7 @@ const queryClient = new QueryClient({
 /**
  * This file will contain all the client providers that is required to be rendered near the root of the application.
  *
- * It shouldn't contain any business logic here.
+ * Avoid putting any business logic here ⚙️.
  */
 export default function AppProviders(props: PropsWithChildren) {
   return <QueryClientProvider client={queryClient}>{props.children}</QueryClientProvider>

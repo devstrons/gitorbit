@@ -21,12 +21,12 @@ export default function UsernameInputForm() {
         router.push(`/${data.githubUsername}`)
       })}>
       <input
-        className='flex-1 border-none bg-slate-600 shadow-inner placeholder:text-slate-400 autofill:bg-slate-500 autofill:shadow-none'
+        className='flex-1 border-none bg-slate-100 shadow-inner placeholder:text-slate-400 autofill:shadow-none dark:bg-slate-600 autofill:dark:bg-slate-500'
         {...register('githubUsername')}
         placeholder='Search GitHub Username'
         type='text'
       />
-      <button className='icon bg-slate-800 px-4'>search</button>
+      <button className='icon bg-white px-4 dark:bg-slate-800'>search</button>
     </form>
   )
 }
