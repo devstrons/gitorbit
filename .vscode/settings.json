@@ -1,16 +1,28 @@
 {
   "conventionalCommits.promptFooter": false,
   "conventionalCommits.promptScopes": false,
-  "cSpell.words": ["devstrons", "gitorbit"],
+  "cSpell.words": [
+    "devstrons",
+    "gitorbit"
+  ],
   "explorer.sortOrder": "type",
   "explorer.sortOrderLexicographicOptions": "lower",
   "javascript.format.semicolons": "remove",
   "tailwindCSS.experimental.classRegex": [
-    ["Classes ?\\=([^;]*)", "'([^']*)'"],
-    ["Classes ?\\=([^;]*)", "\"([^\"]*)\""],
-    ["Classes ?\\=([^;]*)", "\\`([^\\`]*)\\`"]
+    [
+      "Classes ?\\=([^;]*)",
+      "'([^']*)'"
+    ],
+    [
+      "Classes ?\\=([^;]*)",
+      "\"([^\"]*)\""
+    ],
+    [
+      "Classes ?\\=([^;]*)",
+      "\\`([^\\`]*)\\`"
+    ]
   ],
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.format.semicolons": "remove",
-  "typescript.tsdk": "./node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
