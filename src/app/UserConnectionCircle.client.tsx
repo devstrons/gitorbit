@@ -1,22 +1,13 @@
 'use client'
 
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
-import { angleToRadian } from './utils/general.util'
+import { angleToRadian, delay } from './utils/general.util'
 
 type Props = {
   size: number
   bgColor: string
   avatarUrls: string[]
 }
-
-const getImage = (url: string) =>
-  new Promise<HTMLImageElement>((resolve, reject) => {
-    const img = new Image()
-    img.crossOrigin = '*'
-    img.src = url
-    img.onload = () => resolve(img)
-    img.onerror = reject
-  })
 
 const UserConnectionCircle = forwardRef<HTMLCanvasElement, Props>((props, ref) => {
   const configurations = [
@@ -62,40 +53,57 @@ const UserConnectionCircle = forwardRef<HTMLCanvasElement, Props>((props, ref) =
       ctx.restore()
     })
 
+    const userAvatarUrls = [...props.avatarUrls]
+
     // render user's connection circles
-    Promise.all(props.avatarUrls.map(getImage)).then((avatarImages) => {
-      for (let i = 0; i < configurations.length; i++) {
-        const config = configurations[i]
-        const offset = i * 30
-        const angleSize = 360 / config.count
+    for (let i = 0; i < configurations.length; i++) {
+      const config = configurations[i]
+      const offset = i * 30
+      const angleSize = 360 / config.count
 
-        const images = avatarImages.splice(0, config.count)
+      const urls = userAvatarUrls.splice(0, config.count)
+      for (let i = 0; i < urls.length; i++) {
+        const radian = angleToRadian(i * angleSize + offset)
+        const centerX = Math.cos(radian) * config.distance + width / 2
+        const centerY = Math.sin(radian) * config.distance + height / 2
 
-        for (let i = 0; i < images.length; i++) {
-          const radian = angleToRadian(i * angleSize + offset)
-          const centerX = Math.cos(radian) * config.distance + width / 2
-          const centerY = Math.sin(radian) * config.distance + height / 2
-
-          ctx.save()
-          ctx.beginPath()
-          ctx.arc(centerX, centerY, config.radius, 0, Math.PI * 2)
-          ctx.clip()
-          ctx.drawImage(
-            images[i]!,
-            centerX - config.radius,
-            centerY - config.radius,
-            config.radius * 2,
-            config.radius * 2
-          )
-          ctx.restore()
-        }
+        drawUserAvatar(ctx, urls[i], centerX, centerY, config.radius)
       }
-    })
+    }
   }, [props.bgColor, props.size, props.avatarUrls[0]])
 
   return (
-    <canvas id='user-connection-circle' ref={canvasRef} height={props.size} width={props.size} />
+    <canvas ref={canvasRef} id='user-connection-circle' height={props.size} width={props.size} />
   )
 })
-
 export default UserConnectionCircle
+
+const getImage = (url: string) =>
+  new Promise<HTMLImageElement>((resolve, reject) => {
+    const img = new Image()
+    img.crossOrigin = '*'
+    img.src = url
+    img.onload = () => resolve(img)
+    img.onerror = reject
+  })
+
+async function drawUserAvatar(
+  ctx: CanvasRenderingContext2D,
+  avatarUrl: string,
+  centerX: number,
+  centerY: number,
+  radius: number
+) {
+  const [image] = await Promise.all([getImage(avatarUrl), delay(Math.random() * 2)])
+
+  ctx.save()
+  ctx.beginPath()
+  ctx.arc(centerX, centerY, radius, 0, Math.PI * 2)
+  ctx.clip()
+
+  ctx.fillStyle = '#fff8'
+  ctx.fill()
+
+  ctx.drawImage(image, centerX - radius, centerY - radius, radius * 2, radius * 2)
+  ctx.restore()
+}

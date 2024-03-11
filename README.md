@@ -2,7 +2,7 @@
 
 ![gitorbit poster](public/gitorbit-github-poster.png)
 
-# ⚡️ Contribution Guidelines
+## ⚡️ Contribution Guidelines
 
 Wanna contribute to our project, but don't know how to start? Check out our [**contributing guidelines**](https://github.com/devstrons/gitorbit/blob/main/CONTRIBUTING.md) for how to make your first contribution here.
 
